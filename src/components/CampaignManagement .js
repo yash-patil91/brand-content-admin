@@ -42,7 +42,7 @@ const CampaignManagement = () => {
                     // onClick={() => navigate('/')}
                 />
             </div>
-            <div className="relative">
+            {/* <div className="relative">
                 <input
                     type="text"
                     placeholder="Search..."
@@ -52,7 +52,7 @@ const CampaignManagement = () => {
                 <div className="absolute top-1 right-2">
                     <SearchOutlinedIcon style={{ fontSize: "18px", color: "slategray" }} />
                 </div>
-            </div>
+            </div> */}
             <div>
                 <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full border border-slate-300 cursor-pointer">
                     <span className="font-medium text-slate-500">JL</span>
