@@ -9,7 +9,7 @@ const LoginPage = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        navigate('/compaignmanagement')
+        navigate('/campaignmanagement')
     };
 
 
