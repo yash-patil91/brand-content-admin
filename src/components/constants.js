@@ -23,3 +23,5 @@ export const dummyCampaigns = [
     },
     // Add more dummy campaigns as needed
 ];
+
+export const api_url = "http://localhost:5000"
