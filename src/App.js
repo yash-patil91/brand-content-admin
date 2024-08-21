@@ -6,16 +6,15 @@ import AuthcodeManagement from "./components/AuthcodeManagement";
 import InfluencerManagement from "./components/InfluencerManagement";
 
 // Function to check if the user is authenticated and of the required type
-const isAuthenticated = (requiredUserType) => {
+const isAuthenticated = () => {
     const token = localStorage.getItem('token');
-    const userType = localStorage.getItem('type');
-    
-    return token && userType === requiredUserType;
+
+    return token;
 };
 
 // ProtectedRoute component to guard the routes
-const ProtectedRoute = ({ children, requiredUserType }) => {
-    if (!isAuthenticated(requiredUserType)) {
+const ProtectedRoute = ({ children }) => {
+    if (!isAuthenticated()) {
         return <Navigate to="/" />;
     }
     return children;
@@ -26,29 +25,29 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
-                <Route 
-                    path="/campaignmanagement" 
+                <Route
+                    path="/campaignmanagement"
                     element={
-                        <ProtectedRoute requiredUserType="contentCreator">
+                        <ProtectedRoute>
                             <CampaignManagement />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/authcodemanagement" 
+                <Route
+                    path="/authcodemanagement"
                     element={
-                        <ProtectedRoute requiredUserType="contentCreator">
+                        <ProtectedRoute>
                             <AuthcodeManagement />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/influencermanagement" 
+                <Route
+                    path="/influencermanagement"
                     element={
-                        <ProtectedRoute requiredUserType="contentCreator">
+                        <ProtectedRoute>
                             <InfluencerManagement />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
             </Routes>
         </>

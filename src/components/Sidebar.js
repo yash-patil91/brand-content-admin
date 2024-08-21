@@ -12,11 +12,6 @@ const Sidebar = ({ onSelect }) => {
         // Add more sidebar items here
     ];
 
-    const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove the token from localStorage
-        localStorage.removeItem('type');  // Optionally remove other related data like user type
-        navigate('/'); // Navigate to the login page
-    };
 
     return (
         <div className="w-64 h-screen bg-slate-100 p-4 flex flex-col justify-between">
@@ -34,16 +29,7 @@ const Sidebar = ({ onSelect }) => {
                     </ListItem>
                 ))}
             </List>
-            <div className="mt-auto">
-                <Button 
-                    variant="contained" 
-                    color="secondary" 
-                    onClick={handleLogout} 
-                    className="w-full"
-                >
-                    Logout
-                </Button>
-            </div>
+            
         </div>
     );
 };

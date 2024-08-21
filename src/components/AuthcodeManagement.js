@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import axios from 'axios'; // Import axios for making API requests
 import { api_url } from './constants';
+import Topbar from './Topbar';
 
 const AuthcodeManagement = () => {
     const [activeSection, setActiveSection] = useState('campaigns');
@@ -27,15 +28,7 @@ const AuthcodeManagement = () => {
 
     return (
         <>
-            <div className="bg-white shadow-sm w-full px-3 sm:px-4 md:px-8 lg:px-8 flex justify-between items-center">
-                <div>
-                    <img
-                        className="h-24 cursor-pointer"
-                        src={require("../assets/images/Logo.png")}
-                        alt="Your Company"
-                    />
-                </div>
-            </div>
+          <Topbar/>
 
             <div className="flex">
                 <Sidebar onSelect={handleSidebarSelect} />

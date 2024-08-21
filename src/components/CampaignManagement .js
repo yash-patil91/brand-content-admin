@@ -13,6 +13,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Sidebar from './Sidebar'; // Assume Sidebar component for navigation
 import { api_url } from './constants';
+import Topbar from './Topbar';
 
 const CampaignManagement = () => {
     const [campaigns, setCampaigns] = useState([]);
@@ -90,28 +91,7 @@ const CampaignManagement = () => {
 
     return (
         <>
-            <div className="bg-white shadow-sm w-full px-3 sm:px-4 md:px-8 lg:px-8 flex justify-between items-center">
-                <div>
-                    <img
-                        className="h-24 cursor-pointer"
-                        src={require("../assets/images/Logo.png")}
-                        alt="Your Company"
-                    // onClick={() => navigate('/')}
-                    />
-                </div>
-                {/* <div className="relative">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    required
-                    className="block w-full sm:w-96 md:w-96 lg:w-96 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 outline-none"
-                />
-                <div className="absolute top-1 right-2">
-                    <SearchOutlinedIcon style={{ fontSize: "18px", color: "slategray" }} />
-                </div>
-            </div> */}
-
-            </div>
+            <Topbar/>
             <div className="flex">
                 <Sidebar onSelect={handleSidebarSelect} />
                 <Container>

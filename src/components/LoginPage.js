@@ -19,17 +19,12 @@ const LoginPage = () => {
         setError('');
 
         try {
-            const response = await axios.post(`${api_url}/api/influencers/login`, { email, password, type: 'contentCreator' });
+            const response = await axios.post(`${api_url}/api/admin/login`, { email, password });
             const { token } = response.data;
             if (token) {
-                const tokenParts = token.split('.');
-                if (tokenParts.length !== 3) return null;
-                const payload = JSON.parse(atob(tokenParts[1]));
-                const type = payload.type;
-                localStorage.setItem('type', type);
+                localStorage.setItem('token', token);
                 navigate(`/campaignmanagement`);
             }
-            localStorage.setItem('token', token);
         } catch (error) {
             setError(error.response ? error.response.data.message : 'Login failed. Please try again.');
         } finally {
