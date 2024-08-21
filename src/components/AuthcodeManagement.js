@@ -51,7 +51,7 @@ const AuthcodeManagement = () => {
                         <button
                             onClick={handleSubmit}
                             className="bg-blue-500 ml-6 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
-                            disabled={loading} // Disable button when loading
+                            disabled={loading} 
                         >
                             {loading ? 'Loading...' : 'Submit'} {/* Show loader text */}
                         </button>
