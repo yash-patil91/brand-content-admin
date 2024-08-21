@@ -6,7 +6,13 @@ import {
     DialogContent,
     DialogActions,
     Button,
-    Container
+    Container,
+    TableHead,
+    TableRow,
+    TableCell,
+    Skeleton,
+    TableBody,
+    Table
 } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -22,15 +28,19 @@ const CampaignManagement = () => {
     const [openDelete, setOpenDelete] = useState(false);
     const [selectedCampaignId, setSelectedCampaignId] = useState(null);
     const [activeSection, setActiveSection] = useState('campaigns');
+    const [loading, setLoading] = useState(false);
 
 
 
     const fetchCampaigns = async () => {
+        setLoading(true);
         try {
             const response = await axios.get(`${api_url}/api/campaign`);
             setCampaigns(response.data);
         } catch (error) {
             console.error('Error fetching campaigns:', error);
+        } finally {
+            setLoading(false);
         }
     };
     useEffect(() => {
@@ -91,49 +101,91 @@ const CampaignManagement = () => {
 
     return (
         <>
-            <Topbar/>
+            <Topbar />
             <div className="flex">
                 <Sidebar onSelect={handleSidebarSelect} />
                 <Container>
                     <div className="my-6">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Campaign Management</h2>
                         <div className="mt-5 overflow-x-auto">
-                            <table className="w-full text-sm text-left text-gray-500">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 border">Company Name</th>
-                                        <th className="px-6 py-3 border">Campaign Title</th>
-                                        <th className="px-4 py-2 border">Description</th>
-                                        {/* <th className="px-4 py-2 border">Requirements</th> */}
-                                        <th className="px-4 py-2 border">Brand</th>
-                                        <th className="px-4 py-2 border">Deadlines</th>
-                                        <th className="px-4 py-2 border">Actions</th>
+                            {
+                                loading ? (
+                                    // Show Skeletons if loading
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                {['First Name', 'Last Name', 'Email', 'Niche', 'Status', 'Actions'].map((header) => (
+                                                    <TableCell key={header}>
+                                                        <Skeleton animation="wave" height={40} />
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {[...Array(1)].map((_, index) => (
+                                                <TableRow key={index}>
+                                                    {Array(6).fill('').map((_, idx) => (
+                                                        <TableCell key={idx}>
+                                                            <Skeleton animation="wave" height={40} />
+                                                        </TableCell>
+                                                    ))}
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                ) : (
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {campaigns.map((campaign) => (
-                                        <tr className="bg-white border" key={campaign.id}>
-                                            <td className="px-6 py-4 text-slate-500">{campaign.companyName}</td>
-                                            <td className="px-6 py-4 text-slate-500">{campaign.campaignTitle}</td>
-                                            <td className="px-4 py-2 border">{campaign.campaignDescription}</td>
-                                            {/* <td className="px-4 py-2 border">{campaign.requirements}</td> */}
-                                            <td className="px-4 py-2 border">{campaign.brand}</td>
-                                            <td className="px-4 py-2 border">{campaign.deadlines}</td>
-                                            <td className="py-4 px-6 flex gap-2">
-                                                <button onClick={() => handleEdit(campaign)} className="mr-2 flex gap-2 items-center">
-                                                    <EditOutlinedIcon style={{ fontSize: "16px" }} />
-                                                    Edit
-                                                </button>
-                                                <button onClick={() => handleDeleteConfirmation(campaign._id)} className="mr-2 flex gap-2 items-center">
-                                                    <DeleteOutlineOutlinedIcon style={{ fontSize: "16px" }} />
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    <>
+                                        {
+                                            campaigns?.length > 0 ?
+                                                <>
+                                                    <table className="w-full text-sm text-left text-gray-500">
+                                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                                                            <tr>
+                                                                <th className="px-6 py-3 border">Company Name</th>
+                                                                <th className="px-6 py-3 border">Campaign Title</th>
+                                                                <th className="px-4 py-2 border">Description</th>
+                                                                {/* <th className="px-4 py-2 border">Requirements</th> */}
+                                                                <th className="px-4 py-2 border">Brand</th>
+                                                                <th className="px-4 py-2 border">Deadlines</th>
+                                                                <th className="px-4 py-2 border">Actions</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {campaigns.map((campaign) => (
+                                                                <tr className="bg-white border" key={campaign.id}>
+                                                                    <td className="px-6 py-4 text-slate-500">{campaign.companyName}</td>
+                                                                    <td className="px-6 py-4 text-slate-500">{campaign.campaignTitle}</td>
+                                                                    <td className="px-4 py-2 border">{campaign.campaignDescription}</td>
+                                                                    {/* <td className="px-4 py-2 border">{campaign.requirements}</td> */}
+                                                                    <td className="px-4 py-2 border">{campaign.brand}</td>
+                                                                    <td className="px-4 py-2 border">{campaign.deadlines}</td>
+                                                                    <td className="py-4 px-6 flex gap-2">
+                                                                        <button onClick={() => handleEdit(campaign)} className="mr-2 flex gap-2 items-center">
+                                                                            <EditOutlinedIcon style={{ fontSize: "16px" }} />
+                                                                            Edit
+                                                                        </button>
+                                                                        <button onClick={() => handleDeleteConfirmation(campaign._id)} className="mr-2 flex gap-2 items-center">
+                                                                            <DeleteOutlineOutlinedIcon style={{ fontSize: "16px" }} />
+                                                                            Delete
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </>
+                                                : <>
+                                                    <div className='text-center py-2 bg-pink-100 mt-6 rounded-sm font-semibold text-black'>
+                                                        <h6>No Campaign Found</h6>
+                                                    </div>
+                                                </>
+                                        }
+                                    </>
+
+                                )}
+
                         </div>
 
                         {/* Edit Campaign Dialog */}

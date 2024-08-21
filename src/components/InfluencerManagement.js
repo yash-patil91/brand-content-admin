@@ -6,13 +6,18 @@ import {
     DialogContent,
     DialogActions,
     Button,
-    Container
+    Container,
+    Skeleton,
+    TableCell,
+    TableRow,
+    Table,
+    TableHead,
+    TableBody
 } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Sidebar from './Sidebar'; // Assume Sidebar component for navigation
 import { api_url } from './constants';
 import Topbar from './Topbar';
-
 
 const InfluencerManagement = () => {
     const [influencers, setInfluencers] = useState([]);
@@ -21,16 +26,18 @@ const InfluencerManagement = () => {
     const [openDelete, setOpenDelete] = useState(false);
     const [selectedInfluencerId, setSelectedInfluencerId] = useState(null);
     const [activeSection, setActiveSection] = useState('influencers');
+    const [loading, setLoading] = useState(true); // Loading state
+
     const fetchInfluencers = async () => {
         try {
             const response = await axios.get(`${api_url}/api/influencers`);
             setInfluencers(response.data);
+            setLoading(false); // Set loading to false after fetching
         } catch (error) {
             console.error('Error fetching influencers:', error);
+            setLoading(false); // In case of error, also stop loading
         }
     };
-
-    console.log("influencers", influencers)
 
     useEffect(() => {
         fetchInfluencers();
@@ -70,11 +77,9 @@ const InfluencerManagement = () => {
         setActiveSection(section);
     };
 
-    
- 
     return (
         <>
-        <Topbar/>
+            <Topbar />
 
             <div className="flex">
                 <Sidebar onSelect={handleSidebarSelect} />
@@ -82,45 +87,79 @@ const InfluencerManagement = () => {
                     <div className="my-6">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Influencer Management</h2>
                         <div className="mt-5 overflow-x-auto">
-                            <table className="w-full text-sm text-left text-gray-500">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 border">First Name</th>
-                                        <th className="px-6 py-3 border">Last Name</th>
-                                        <th className="px-6 py-3 border">Email</th>
-                                        <th className="px-6 py-3 border">Niche</th>
-                                        <th className="px-6 py-3 border">Status</th>
-                                        <th className="px-6 py-3 border">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {influencers.map((influencer) => (
-                                        <tr
-                                            className="bg-white border cursor-pointer"
-                                            key={influencer._id}
-                                            onClick={() => handleRowClick(influencer)}
-                                        >
-                                            <td className="px-6 py-4 text-slate-500">{influencer.firstName}</td>
-                                            <td className="px-6 py-4 text-slate-500">{influencer.lastName}</td>
-                                            <td className="px-6 py-4 text-slate-500">{influencer.email}</td>
-                                            <td className="px-6 py-4 text-slate-500">{influencer.niche.join(', ')}</td>
-                                            <td className="px-6 py-4 text-slate-500">{influencer.status}</td>
-                                            <td className="py-4 px-6 flex gap-2">
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleDeleteConfirmation(influencer._id);
-                                                    }}
-                                                    className="mr-2 flex gap-2 items-center"
-                                                >
-                                                    <DeleteOutlineOutlinedIcon style={{ fontSize: "16px" }} />
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            {
+                                loading ? (
+                                    // Show Skeletons if loading
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                {['First Name', 'Last Name', 'Email', 'Niche', 'Status', 'Actions'].map((header) => (
+                                                    <TableCell key={header}>
+                                                        <Skeleton animation="wave" height={40} />
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {[...Array(1)].map((_, index) => (
+                                                <TableRow key={index}>
+                                                    {Array(6).fill('').map((_, idx) => (
+                                                        <TableCell key={idx}>
+                                                            <Skeleton animation="wave" height={40} />
+                                                        </TableCell>
+                                                    ))}
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                ) : (
+                                    influencers.length > 0 ? (
+                                        <table className="w-full text-sm text-left text-gray-500">
+                                            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                                                <tr>
+                                                    <th className="px-6 py-3 border">First Name</th>
+                                                    <th className="px-6 py-3 border">Last Name</th>
+                                                    <th className="px-6 py-3 border">Email</th>
+                                                    <th className="px-6 py-3 border">Niche</th>
+                                                    <th className="px-6 py-3 border">Status</th>
+                                                    <th className="px-6 py-3 border">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {influencers.map((influencer) => (
+                                                    <tr
+                                                        className="bg-white border cursor-pointer"
+                                                        key={influencer._id}
+                                                        onClick={() => handleRowClick(influencer)}
+                                                    >
+                                                        <td className="px-6 py-4 text-slate-500">{influencer.firstName}</td>
+                                                        <td className="px-6 py-4 text-slate-500">{influencer.lastName}</td>
+                                                        <td className="px-6 py-4 text-slate-500">{influencer.email}</td>
+                                                        <td className="px-6 py-4 text-slate-500">{influencer.niche.join(', ')}</td>
+                                                        <td className="px-6 py-4 text-slate-500">{influencer.status}</td>
+                                                        <td className="py-4 px-6 flex gap-2">
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleDeleteConfirmation(influencer._id);
+                                                                }}
+                                                                className="mr-2 flex gap-2 items-center"
+                                                            >
+                                                                <DeleteOutlineOutlinedIcon style={{ fontSize: "16px" }} />
+                                                                Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <div className='text-center py-2 bg-pink-100 mt-6 rounded-sm font-semibold text-black'>
+                                            <h6>No Influencer Found</h6>
+                                        </div>
+                                    )
+                                )
+                            }
                         </div>
 
                         {/* Influencer Details Dialog */}
