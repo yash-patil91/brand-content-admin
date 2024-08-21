@@ -20,7 +20,7 @@ const CampaignManagement = () => {
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [selectedCampaignId, setSelectedCampaignId] = useState(null);
-    const [activeSection, setActiveSection] = useState('campaigns'); 
+    const [activeSection, setActiveSection] = useState('campaigns');
 
 
 
@@ -56,7 +56,7 @@ const CampaignManagement = () => {
     const handleSaveEdit = async () => {
         try {
             await axios.put(`${api_url}/api/campaign/${selectedCampaign._id}`, selectedCampaign);
-            fetchCampaigns(); 
+            fetchCampaigns();
             handleCloseEdit();
         } catch (error) {
             console.error('Error updating campaign:', error);
@@ -75,7 +75,7 @@ const CampaignManagement = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`/api/campaign/${selectedCampaignId}`);
+            await axios.delete(`${api_url}/api/campaign/${selectedCampaignId}`);
             fetchCampaigns(); // Refresh campaigns after deletion
             handleCloseDelete();
         } catch (error) {
@@ -113,7 +113,7 @@ const CampaignManagement = () => {
 
             </div>
             <div className="flex">
-                <Sidebar onSelect={handleSidebarSelect}/>
+                <Sidebar onSelect={handleSidebarSelect} />
                 <Container>
                     <div className="my-6">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Campaign Management</h2>
@@ -145,7 +145,7 @@ const CampaignManagement = () => {
                                                     <EditOutlinedIcon style={{ fontSize: "16px" }} />
                                                     Edit
                                                 </button>
-                                                <button onClick={() => handleDeleteConfirmation(campaign.id)} className="mr-2 flex gap-2 items-center">
+                                                <button onClick={() => handleDeleteConfirmation(campaign._id)} className="mr-2 flex gap-2 items-center">
                                                     <DeleteOutlineOutlinedIcon style={{ fontSize: "16px" }} />
                                                     Delete
                                                 </button>
