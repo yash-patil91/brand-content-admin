@@ -60,18 +60,15 @@ const BrandsManagement = () => {
 
     const handlePaymentUpdate = async (brandId, currentStatus) => {
         try {
-            const response = await axios.put(`${api_url}/api/brands/${brandId}/payment`, {
-                payment: !currentStatus
+            await axios.put(`${api_url}/api/brands/${brandId}/payment`, {
+                enable: !currentStatus
             });
-            console.log('Payment status updated:', response.data);
-
             // Optionally, update the UI after a successful API call
             fetchBrands();
         } catch (error) {
             console.error('Error updating payment status:', error);
         }
     };
-    console.log("brands", brands)
     return (
         <>
             <Topbar />
@@ -114,7 +111,7 @@ const BrandsManagement = () => {
                                                     <th className="px-6 py-3 border">Name</th>
                                                     <th className="px-6 py-3 border">Phone</th>
                                                     <th className="px-6 py-3 border">Email</th>
-                                                    <th className="px-6 py-3 border">Status</th>
+                                                    {/* <th className="px-6 py-3 border">Status</th> */}
                                                     <th className="px-6 py-3 border">Actions</th>
                                                 </tr>
                                             </thead>
@@ -128,7 +125,7 @@ const BrandsManagement = () => {
                                                         <td className="px-6 py-4 text-slate-500">{brand.fullName}</td>
                                                         <td className="px-6 py-4 text-slate-500">{brand.phone}</td>
                                                         <td className="px-6 py-4 text-slate-500">{brand.email}</td>
-                                                        <td className="px-6 py-4 text-slate-500">{brand.Status}</td>
+                                                        {/* <td className="px-6 py-4 text-slate-500">{brand.Status}</td> */}
                                                         <td className="py-4 px-6 flex gap-2">
                                                             <Switch
                                                                 {...label}
