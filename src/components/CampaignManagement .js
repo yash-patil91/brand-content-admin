@@ -31,7 +31,7 @@ const CampaignManagement = () => {
     const [loading, setLoading] = useState(false);
 
 
-
+    console.log("campaigns", campaigns)
     const fetchCampaigns = async () => {
         setLoading(true);
         try {
@@ -147,7 +147,7 @@ const CampaignManagement = () => {
                                                                 <th className="px-4 py-2 border">Description</th>
                                                                 {/* <th className="px-4 py-2 border">Requirements</th> */}
                                                                 <th className="px-4 py-2 border">Brand</th>
-                                                                <th className="px-4 py-2 border">Deadlines</th>
+                                                                <th className="px-4 py-2 border">Email</th>
                                                                 <th className="px-4 py-2 border">Actions</th>
 
                                                             </tr>
@@ -160,7 +160,7 @@ const CampaignManagement = () => {
                                                                     <td className="px-4 py-2 border">{campaign.campaignDescription}</td>
                                                                     {/* <td className="px-4 py-2 border">{campaign.requirements}</td> */}
                                                                     <td className="px-4 py-2 border">{campaign.brand}</td>
-                                                                    <td className="px-4 py-2 border">{campaign.deadlines}</td>
+                                                                    <td className="px-4 py-2 border">{campaign.COEmail}</td>
                                                                     <td className="py-4 px-6 flex gap-2">
                                                                         <button onClick={() => handleEdit(campaign)} className="mr-2 flex gap-2 items-center">
                                                                             <EditOutlinedIcon style={{ fontSize: "16px" }} />

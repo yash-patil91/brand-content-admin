@@ -8,6 +8,7 @@ const Sidebar = ({ onSelect }) => {
     const items = [
         { name: 'Campaign Management', value: 'campaigns', navigateTo: "/campaignmanagement" },
         { name: 'Influencer Management', value: 'influencer', navigateTo: "/influencermanagement" },
+        { name: 'Brand Management', value: 'influencer', navigateTo: "/brandmanagement" },
         { name: 'Auth Code Generation', value: 'authcode', navigateTo: "/authcodemanagement" },
         // Add more sidebar items here
     ];

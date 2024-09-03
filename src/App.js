@@ -4,6 +4,7 @@ import CampaignManagement from "./components/CampaignManagement ";
 import LoginPage from "./components/LoginPage";
 import AuthcodeManagement from "./components/AuthcodeManagement";
 import InfluencerManagement from "./components/InfluencerManagement";
+import BrandsManagement from "./components/BrandsManagement";
 
 // Function to check if the user is authenticated and of the required type
 const isAuthenticated = () => {
@@ -46,6 +47,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <InfluencerManagement />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/brandmanagement"
+                    element={
+                        <ProtectedRoute>
+                            <BrandsManagement />
                         </ProtectedRoute>
                     }
                 />
