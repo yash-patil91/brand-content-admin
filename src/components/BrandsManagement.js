@@ -18,6 +18,7 @@ import {
 import Sidebar from './Sidebar'; // Assume Sidebar component for navigation
 import { api_url } from './constants';
 import Topbar from './Topbar';
+import toast, { Toaster } from 'react-hot-toast';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -62,16 +63,25 @@ const BrandsManagement = () => {
     try {
       await axios.put(`${api_url}/api/brands/${brandId}/payment`, {
         enable: !currentStatus,
-        email: email 
+        email: email
       });
-      // Optionally, update the UI after a successful API call
-      fetchBrands();
+
+      fetchBrands(); // Optionally refresh the list after update
+
+      // Show success message based on the status change
+      if (!currentStatus) {
+        toast.success(`Brand successfully enabled!`);
+      } else {
+        toast.error(`Brand successfully disabled!`);
+      }
     } catch (error) {
       console.error('Error updating payment status:', error);
+      toast.error('Failed to update brand status');
     }
   };
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <Topbar />
 
       <div className="flex">
