@@ -148,6 +148,7 @@ const CampaignManagement = () => {
                                                                 {/* <th className="px-4 py-2 border">Requirements</th> */}
                                                                 <th className="px-4 py-2 border">Brand</th>
                                                                 <th className="px-4 py-2 border">Email</th>
+                                                                <th className="px-4 py-2 border">Campaign Status</th>
                                                                 <th className="px-4 py-2 border">Actions</th>
 
                                                             </tr>
@@ -161,6 +162,7 @@ const CampaignManagement = () => {
                                                                     {/* <td className="px-4 py-2 border">{campaign.requirements}</td> */}
                                                                     <td className="px-4 py-2 border">{campaign.brand}</td>
                                                                     <td className="px-4 py-2 border">{campaign.COEmail}</td>
+                                                                    <td className="px-4 py-2 border">{campaign.campaignStatus}</td>
                                                                     <td className="py-4 px-6 flex gap-2">
                                                                         <button onClick={() => handleEdit(campaign)} className="mr-2 flex gap-2 items-center">
                                                                             <EditOutlinedIcon style={{ fontSize: "16px" }} />
@@ -203,7 +205,7 @@ const CampaignManagement = () => {
                                             name="companyName"
                                             value={selectedCampaign.companyName}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -216,7 +218,7 @@ const CampaignManagement = () => {
                                             name="campaignTitle"
                                             value={selectedCampaign.campaignTitle}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -229,7 +231,7 @@ const CampaignManagement = () => {
                                             name="campaignDescription"
                                             value={selectedCampaign.campaignDescription}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -242,7 +244,7 @@ const CampaignManagement = () => {
                                             name="requirements"
                                             value={selectedCampaign.requirements}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -255,7 +257,7 @@ const CampaignManagement = () => {
                                             name="brand"
                                             value={selectedCampaign.brand}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -268,7 +270,7 @@ const CampaignManagement = () => {
                                             name="deadlines"
                                             value={selectedCampaign.deadlines}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -281,7 +283,7 @@ const CampaignManagement = () => {
                                             name="compensation"
                                             value={selectedCampaign.compensation}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -294,7 +296,7 @@ const CampaignManagement = () => {
                                             name="deliverables"
                                             value={selectedCampaign.deliverables}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
                                     <div>
@@ -307,9 +309,26 @@ const CampaignManagement = () => {
                                             name="social_media"
                                             value={selectedCampaign.social_media}
                                             onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 shadow-sm"
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
                                         />
                                     </div>
+                                    <div>
+                                        <label htmlFor="campaignStatus" className="block text-sm font-medium text-gray-700">
+                                            Campaign Status
+                                        </label>
+                                        <select
+                                            id="campaignStatus"
+                                            name="campaignStatus"
+                                            value={selectedCampaign.campaignStatus}
+                                            onChange={handleChange}
+                                            className="block w-full rounded-md border px-2 mt-2 border-1 py-1.5 shadow-sm"
+                                        >
+                                            <option value="Partially Approved">Partially Approved</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Closed">Closed</option>
+                                        </select>
+                                    </div>
+
                                     {/* Add more fields with labels here */}
                                 </DialogContent>
 
